@@ -1,27 +1,128 @@
-$(document).ready(function() {
+let $lis;
+let level = 3;
+let playing = false;
+let gameSequence;
+let userSequence;
 
-  let difficulty = 3;
-  const gameSequence = [];
-  const userSequence = [];
+$(init);
 
-  function selectGameSequence() {
-    for (var i = 0; i < difficulty; i++) {
-      const li = Math.floor((Math.random() * $('ul li').length) + 1 );
-      gameSequence.push(li);
-    }
-    console.log(gameSequence);
-    loopThroughSequence();
+function init(){
+  $lis = $('li');
+  $('#start').on('click', start);
+  $('li').on('click', guess);
+}
+
+function start() {
+  gameSequence = [];
+  userSequence = [];
+
+  for (let i = 0; i <= level; i++) {
+    gameSequence.push(Math.floor(Math.random() * $lis.length));
   }
 
-  function loopThroughSequence() {
-    for (var i = 0; i < gameSequence.length; i++) {
-      //const lis = //clicks
-      // $.each.userSequence() {
-      userSequence.push(lis);
-      //compare
-      }
+  console.log(gameSequence);
+  playSequence();
+}
+
+function playSequence() {
+  for (let i = 0; i <= level; i++) {
+    setTimeout(() => {
+      const nextIndex = gameSequence[i];
+      const $nextLi   = $($lis[nextIndex]);
+      const prevColor = $nextLi.css('background-color');
+      $nextLi.css('background-color', 'white');
+
+      setTimeout(() => {
+        $nextLi.css('background-color', prevColor);
+        if (i === level) {
+          playing = true;
+          console.log('You can play now!');
+        }
+      }, 500);
+    }, 1000*i);
+  }
+}
+
+function guess() {
+  if (!playing) {
+    console.log('You cant play yet');
+    return;
+  }
+  // Get the element I clicked on
+  const $chosenLi = $(this);
+  // Get the index of that li
+  const chosenIndex = $lis.index($chosenLi);
+  const prevColor = $chosenLi.css('background-color');
+  $chosenLi.css('background-color', 'white');
+  setTimeout(() => {
+    $chosenLi.css('background-color', prevColor);
+  }, 500);
+
+  // Add it to the sequence
+  userSequence.push(chosenIndex);
+  console.log(userSequence);
+
+  if (userSequence.length-1 === level) {
+    if (gameSequence.toString() === userSequence.toString()) {
+      alert('WIN');
+      playing = false;
+    } else {
+      alert('LOSE');
+      playing = false;
     }
-  });
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// $(document).ready(function() {
+
+  // let difficulty = 3;
+  // const gameSequence = [];
+  // const userSequence = [];
+  //
+  // function selectGameSequence() {
+  //   for (var i = 0; i < difficulty; i++) {
+  //     const li = Math.floor((Math.random() * $('ul li').length) + 1 );
+  //     gameSequence.push(li);
+  //   }
+  //   console.log(gameSequence);
+  //   loopThroughSequence();
+  // }
+  //
+  // function loopThroughSequence() {
+  //   for (var i = 0; i < gameSequence.length; i++) {
+  //     //const lis = //clicks
+  //     // $.each.userSequence() {
+  //     userSequence.push(lis);
+  //     //compare
+  //     }
+  //   }
+  // });
   // $('.box').on('click', function() {
   //
   //   // console.log('Clicked');
@@ -30,8 +131,8 @@ $(document).ready(function() {
     //  console.log(gameSequence[0], userSequence[1]);
 // if else // switch statement to compare arrays?
 
-  selectGameSequence();
-});
+  // selectGameSequence();
+// });
 
 
 

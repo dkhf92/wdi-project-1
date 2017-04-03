@@ -8,68 +8,50 @@ h1 {
   color: white;
   font-family: 'ABeeZee';
   font-weight: bold;
-  /*font-stretch: expanded;*/
   text-align: center;
 }
 
 main {
   margin: auto;
-  background: black;
-  width: 530px;
-  height: 450px;
-  /*border: 1px solid red;*/
 }
+
 footer {
   text-align: center;
 }
 
-.blink_orange{ background-color: #ff0000; }
-.blink_yellow{ background-color: #ffff00; }
-.blink_blue{ background-color: #0000ff ; }
-.blink_green{ background-color: #00ff00; }
-
-/*.blink {
- color: #FFF !important;
- background: #FC79CE; !important;
-}*/
-
-.grid {
-  /*border: 1px solid green;*/
-  margin: auto;
+#grid {
+  margin: 0 auto;
   width: 320px;
   background: black;
-  margin-top: 75px;
+  padding: 0;
 }
 
-.box {
-  /*border: 1px solid blue;*/
+li {
   height: 150px;
   width: 150px;
   display: inline-block;
-  background: blue;
 }
 
 #first {
   background-color: red;
-  /*animation:blink 700ms infinite alternate;*/
 }
 
 #second {
   background-color: yellow;
-  /*animation:blink 700ms infinite alternate;*/
 }
 
 #third {
   background-color: blue;
-  /*animation:blink 700ms infinite alternate;*/
 }
 
 #fourth {
   background-color: green;
-  /*animation:blink 700ms infinite alternate;*/
 }
 
-/*@keyframes blink {
-    from { opacity:1; }
-    to { opacity:0; }
-}*/
+#start {
+  background: white;
+  width: 100px;
+  height: 50px;
+  line-height: 50px;
+  display: inline-block;
+}
