@@ -76,7 +76,7 @@ function guess() {
       alert('WIN');
       level++;
       score++;
-      $('p').text(`Level: ${score}`);
+      $('p').text(`Level: ${score}`); // add text to the score after level:
       playing = false;
       if (level > 1) {
         levelCheck();
@@ -89,17 +89,16 @@ function guess() {
 }
 
 function levelCheck() {
-  // if (level % 3 === 0) {  // this function runs if level can be divided by 3 and return 0.
-  // playing = true;
   var $grid = $('#grid'); // Grab the Id grid
   $grid.css('width', '480px'); // Changing the width of grid to fit in new li`s.
   var $newli1 = $(document.createElement('li')); //Create new element that is an li and using jquery selector.
   var $newli2 = $(document.createElement('li'));
   $newli1.css('background', 'grey'); // Setting newli1 background to grey.
   $newli2.css('background', 'purple'); // Setting newli2 background to purple.
-  $grid.append($newli1); // Append the new li to the ul.
+  $grid.append($newli1); // Append the new li to the ul/grid.
   $grid.append($newli2); // ===^
   console.log($grid);
   console.log('more boxes');
-  $lis = $('li'); // adding the new lis to variable $lis
+  $lis = $('li'); // Adding the new lis to variable $lis
+  $('li').on('click', guess); // Adding click event on the new li`s.
 }
