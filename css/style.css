@@ -9,8 +9,13 @@ h1 {
   font-family: 'ABeeZee';
   font-weight: bold;
   text-align: center;
+  /*transition: opacity 300ms bounceInDown 1s;
+  tansform: translate(200px, 150px) rotate(10deg);*/
+  /*webkit-transform */
 }
-
+p {
+  color: white;
+}
 main {
   margin: auto;
 }
@@ -30,6 +35,7 @@ li {
   height: 150px;
   width: 150px;
   display: inline-block;
+  margin: 2px;
 }
 
 #first {
