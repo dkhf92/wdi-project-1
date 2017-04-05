@@ -8,13 +8,15 @@ let level;
 let playing;
 let score;
 let gameSequence;
+let gameSequenceWithoutIncorrects;
 let userSequence;
 let $reset;
+let numberOfIncorrects;
 
 // Creates an array containing the 2 sound effects.
 const audio = [
-  new Audio('../sounds/button-11.wav'),
-  new Audio('../sounds/button-10.wav')
+  'incorrect',
+  'correct'
 ];
 
 $(init);
@@ -58,33 +60,61 @@ function createGrid() {
 
 // Run start function after clicking start button.
 function start() {
-  gameSequence = [];
-  userSequence = [];
+  gameSequence       = [];
+  userSequence       = [];
+  numberOfIncorrects = 0;
 
   // Initiate this "for" loop when level is equal to or higher then 0.
   for (let i = 0; i <= level; i++) {
-    gameSequence.push(Math.floor(Math.random() * $lis.length));
+    let nextItem = {
+      index: Math.floor(Math.random() * $lis.length),
+      audio: audio[Math.floor(Math.random() * audio.length)]
+    };
+
+    if (nextItem.audio === 'incorrect') {
+      numberOfIncorrects++;
+    }
+
+    while (numberOfIncorrects > 1) {
+      nextItem = {
+        index: Math.floor(Math.random() * $lis.length),
+        audio: audio[Math.floor(Math.random() * audio.length)]
+      };
+
+      if (nextItem.audio === 'correct') {
+        numberOfIncorrects--;
+      }
+    }
+
+    gameSequence.push(nextItem);
   }
 
-  console.log(gameSequence); // Logs the gameSequence array in the console log.
-  playSequence(); // Runs playSequence function (?).
+  gameSequenceWithoutIncorrects = gameSequence.filter(n => n.audio !== 'incorrect');
+
+  // Logs the gameSequence array in the console log.
+  console.log('gameSequence', gameSequence);
+  console.log('gameSequenceWithoutIncorrects', gameSequenceWithoutIncorrects);
+
+  // Runs playSequence function (?).
+  playSequence();
 }
 
 // This function
 function playSequence() {
   for (let i = 0; i <= level; i++) {
-    // Creates a variable to randomize the sound order. (Still possible to get 4 "failure" sounds which fucks it up)
-    const randomIndex = Math.floor(Math.random() * 2);
-
     setTimeout(() => {
-      const nextIndex = gameSequence[i]; // Variable for gameSequence index (?).
+      const nextIndex = gameSequence[i].index; // Variable for gameSequence index (?).
       const $nextLi   = $($lis[nextIndex]); // Variable for next li in the game sequence (?).
       const prevColor = $nextLi.css('background-color'); // Variable for the background-color of the next chosen li in the gameSequence.
-      $nextLi.css('background-color', 'white'); // Sets background-color of nextli to white.
-      audio[randomIndex].play(); // Plays the audio array in a random order.
+      $nextLi.css('background-color', 'white'); // Sets background-color of nextli to the color in the object.
+
+      const tempAudio = new Audio(`../sounds/${gameSequence[i].audio}.wav`);
+      tempAudio.play(); // Plays the audio property
+
       setTimeout(() => {
         $nextLi.css('background-color', prevColor);
         if (i === level) {
+          // Remove all undefined elements from the sequence
           playing = true;
           console.log('You can play now!');
         }
@@ -104,6 +134,10 @@ function guess() {
   const $chosenLi = $(this);
   // Get the index of that li
   const chosenIndex = $lis.index($chosenLi);
+
+  // Add it to the sequence
+  userSequence.push(chosenIndex);
+
   // Shows the background-color of clicked li.
   const prevColor = $chosenLi.css('background-color');
   // Set chosen/clicked li background-color to white.
@@ -113,12 +147,14 @@ function guess() {
     $chosenLi.css('background-color', prevColor);
   }, 500);
 
-  // Add it to the sequence
-  userSequence.push(chosenIndex);
+  if (
+    userSequence[userSequence.length-1] ===
+    gameSequenceWithoutIncorrects[userSequence.length-1].index
+  ) {
+    correct();
 
-  if (userSequence[userSequence.length-1] === gameSequence[userSequence.length-1]) {
-    if (userSequence.length-1 === level) {
-      correct();
+    if (userSequence.length === gameSequenceWithoutIncorrects.length) {
+      allCorrect();
 
       score++;
       // add text to the score after level:
@@ -142,8 +178,12 @@ function guess() {
   }
 }
 
-// If user imitates computerSequence correctly grid flashes green.
 function correct() {
+  new Audio('../sounds/correct.wav').play();
+}
+
+// If user imitates computerSequence correctly grid flashes green.
+function allCorrect() {
   setTimeout(() => {
     $lis.css('background-color', 'green');
     setTimeout(() => {
@@ -154,6 +194,8 @@ function correct() {
 
 // If user clicks on wrong li grid flashes red and resets the game.
 function wrong() {
+  new Audio(`../sounds/incorrect.wav`).play();
+
   // Convert to a reset function later
   $lis.css('background-color', 'red');
   setTimeout(() => {
