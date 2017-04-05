@@ -214,17 +214,3 @@ function reset(){
   $score.text(`Level: ${score}`);
   createGrid();
 }
-
-
-
-
-// When we generate an array of sounds (for exmaple 4 sounds which is 4 elements in the array). After that we generate a random variable which will represent a fake sound. The variable has to be taken out of the array but ONLY after we showed the sequence to the player.
-
-// fakeSoundIndex is a random number between 0 to last element
-// arrayOfSounds.splice(fakeSoundIndex)
-
-// When we go through an array of the sequence each time play a regular sound but if i === fakeSoundIndex instead of a regular sound we play fake sound. After that we can remove element from the array
-// arrayOfSounds.splice(fakeSoundIndex)
-
-// Figure out a way so the sounds always have 1 valid sound each sequence.
-// The user have to fail the game if he clicks an li which had the unvalid sound.
