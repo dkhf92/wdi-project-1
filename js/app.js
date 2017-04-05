@@ -214,3 +214,5 @@ function reset(){
   $score.text(`Level: ${score}`);
   createGrid();
 }
+
+$('header').addClass('item animated bounceInDown');
