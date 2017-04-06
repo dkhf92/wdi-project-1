@@ -1,6 +1,6 @@
 # wdi-project-1
 My first project for WDI in London.
-
+![alt tag](wdi-project-1/Screen Shot 2017-04-06 at 12.02.45.png)
 Introduction
 
 This Memory Game can be enjoyed as one player or multiplayer. It is based on the game Simon says, in this case "Simon" is the computer. This is my first project on the Web Development Immersive course at General Assembly.
