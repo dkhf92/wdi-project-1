@@ -1,14 +1,12 @@
 # wdi-project-1
 My first project for WDI in London.
-<<<<<<< HEAD
-![alt tag](wdi-project-1/Screen Shot 2017-04-06 at 12.02.45.png)
+
+![](MemoryGame.png)
+
 Introduction
 
 This Memory Game can be enjoyed as one player or multiplayer. It is based on the game Simon says, in this case "Simon" is the computer. This is my first project on the Web Development Immersive course at General Assembly.
 The game can be played here: https://mysterious-forest-15504.herokuapp.com/
-=======
-
-![](./Screen Shot 2017-04-06 at 12.02.45.png)
 
 Introduction
 
@@ -16,7 +14,6 @@ This Memory Game can be enjoyed as one player or multiplayer. It is based on the
 
 The game can be played here: https://mysterious-forest-15504.herokuapp.com/
 
->>>>>>> 76475f05c5dbe6fcbb9b3ff98220f4914de277be
 You can watch my code here: https://github.com/dkhf92/wdi-project-1
 
 How to play
@@ -32,10 +29,7 @@ How the game was built
 Memory Game was created using HTML, CSS and Javascript.
 
 https://coolors.co/ (Color generator for styling)
-<<<<<<< HEAD
-=======
 
->>>>>>> 76475f05c5dbe6fcbb9b3ff98220f4914de277be
 https://fonts.google.com/ (Where I picked out my font for the text)
 
 Credits
