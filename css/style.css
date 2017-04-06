@@ -36,6 +36,7 @@ h1 {
   font-weight: bold;
   text-align: center;
 }
+
 p {
   color: white;
   background: -webkit-linear-gradient(red, yellow);
@@ -68,6 +69,7 @@ ul.grid li {
   border: 2px solid black;
   background: yellow;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 #start {

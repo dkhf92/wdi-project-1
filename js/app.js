@@ -24,6 +24,7 @@ const audio = [
 $(init);
 
 function init(){
+  // Grabbing the ids and classes and setting them to the variables.
   $main  = $('main');
   $start = $('#start');
   $score = $('.score');
@@ -52,21 +53,21 @@ function createGrid() {
   // Append the $grid variable to to the $main variable which runs every time loading the page or resetting the game. This makes the lis visible on the page.
   $main.html($grid);
 
-  // Variable that returns value of gridsize.
+  // Setting the variable numberofLis to 4 (squaring to the power of 2).
   const numberOfLis = Math.pow(gridSize, 2);
-  // Variable that "appends" witdh to the $grid.
+  // Variable that to the $grid.
   const gridWidth   = $grid.width();
 
   // Initiate this "for" loop when numberofLis is greater then 0.
   for (let i = 0; i < numberOfLis; i++) {
-    // Variable that sets height and width of the lis.
+    // Sets size of lis.
     const li = $('<li>').css('height', gridWidth/gridSize).css('width', gridWidth/gridSize).addClass('sequence');
     // Appends the lis to the $grid.
     $grid.append(li);
   }
 
 
-  // Setting $lis to be equal to all of the lis when called.
+
   $lis = $('.sequence');
 }
 
@@ -78,7 +79,7 @@ function start() {
   userSequence       = [];
   numberOfIncorrects = 0;
 
-  // Initiate this "for" loop when level is equal to or higher then 0.
+  // Initiate this "for" loop when level is equal to or higher then 0. (level=3).
   for (let i = 0; i <= level; i++) {
     let nextItem = {
       // Set the index of gameSequence to be randomized
@@ -114,7 +115,7 @@ function start() {
   // logs the gameSequenceWithoutIncorrects in the console log.
   console.log('gameSequenceWithoutIncorrects', gameSequenceWithoutIncorrects);
 
-  // Calls on the playSequence function
+  // Invokes the playSequence function
   playSequence();
 }
 
@@ -166,21 +167,20 @@ function guess() {
     $chosenLi.css('background-color', prevColor);
   }, 500);
 
-  // If userSequence Index
+  // If userSequence is equal to gameSequenceWithoutIncorrects invoke correct.
   if (
     userSequence[userSequence.length-1] ===
     gameSequenceWithoutIncorrects[userSequence.length-1].index
   ) {
     correct();
-    // If userSequence
+    // If userSequence is equal to gameSequenceWithoutIncorrects invoke allCorrect.
     if (userSequence.length === gameSequenceWithoutIncorrects.length) {
       allCorrect();
 
       score++;
-      // add text to the score after level:
       $score.text(`Level: ${score}`);
 
-      // level increases if score
+      // level increases if score increases by 1.
       if (score % 2 === 0) {
         level++;
       }
@@ -197,12 +197,12 @@ function guess() {
     wrong();
   }
 }
-
+// Plays the "correct" audio if user imitates computer correctly.
 function correct() {
   new Audio('../sounds/correct.wav').play();
 }
 
-// If user imitates computerSequence correctly grid flashes green.
+// If user imitates computerSequence correctly, sets background to green and 0.5 seconds later back to yellow.
 function allCorrect() {
   setTimeout(() => {
     $lis.css('background-color', 'green');
@@ -212,11 +212,11 @@ function allCorrect() {
   }, 500);
 }
 
-// If user clicks on wrong li grid flashes red and resets the game.
+// If user clicks on wrong li the "incorrect" audio is played.
 function wrong() {
   new Audio(`../sounds/incorrect.wav`).play();
 
-  // Convert to a reset function later
+  // The grid flashes red and resets the game.
   $lis.css('background-color', 'red');
   setTimeout(() => {
     $lis.css('background-color', 'yellow');
@@ -224,6 +224,7 @@ function wrong() {
   }, 500);
 }
 
+// This function is invoked in init. It will also run if "Reset" button is clicked.
 function reset(){
   gridSize     = 2;
   // The sequence will be length 3
