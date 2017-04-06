@@ -6,6 +6,7 @@ Introduction
 This Memory Game can be enjoyed as one player or multiplayer. It is based on the game Simon says, in this case "Simon" is the computer. This is my first project on the Web Development Immersive course at General Assembly.
 
 The game can be played here: https://mysterious-forest-15504.herokuapp.com/
+
 You can watch my code here: https://github.com/dkhf92/wdi-project-1
 
 How to play
