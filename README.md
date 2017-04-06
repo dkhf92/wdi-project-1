@@ -1,5 +1,6 @@
 # wdi-project-1
 My first project for WDI in London.
+
 ![](./Screen Shot 2017-04-06 at 12.02.45.png)
 
 Introduction
