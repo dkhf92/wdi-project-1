@@ -1,17 +1,31 @@
 body {
-  background: black;
+  background: rgb(74, 8, 8);
   font-family: "ABeeZee";
   text-align: center;
 }
 
-/*nav {
-float: right;
-font-size: 20px;
-color: white;
+nav {
+  font-size: 22px;
+  color: white;
+  position: absolute;
+  font-family: 'ABeeZee';
+  text-align: left;
+  background: -webkit-linear-gradient(red, yellow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-nav.drop, li {
-list-style-type: none;
-}*/
+.rules {
+  list-style-type: none;
+  margin-top: 50px;
+  cursor: pointer;
+}
+.text {
+  list-style-type: none;
+  font-size: 17px;
+  display: none;
+  width: 200px;
+  float: left;
+}
 
 h1 {
   font-size: 50px;
@@ -22,7 +36,6 @@ h1 {
   font-weight: bold;
   text-align: center;
 }
-
 p {
   color: white;
   background: -webkit-linear-gradient(red, yellow);

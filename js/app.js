@@ -12,6 +12,8 @@ let gameSequenceWithoutIncorrects;
 let userSequence;
 let $reset;
 let numberOfIncorrects;
+let $rules;
+let shouldShowRules = true;
 
 // Creates an array containing the 2 sound effects.
 const audio = [
@@ -26,6 +28,9 @@ function init(){
   $start = $('#start');
   $score = $('.score');
   $reset = $('#reset');
+  $rules = $('.rules');
+
+  // Calls on reset function which resets game and calls the createGrid function.
   reset();
 
   // Click the start button to start the game.
@@ -36,8 +41,11 @@ function init(){
 
   // When you click the reset button it resets..
   $reset.on('click', reset);
-}
 
+  // Click on "Rules" to toggle the rules of game.
+  $rules.on('click', rules);
+}
+// This function is called by reset() in function init and runs every time you refresh page or reset game.
 function createGrid() {
   // Creates lis in the $grid variable.
   $grid = $('<ul>', { class: 'grid' });
@@ -49,17 +57,21 @@ function createGrid() {
   // Variable that "appends" witdh to the $grid when called(?)
   const gridWidth   = $grid.width();
 
-  // A for loop that styles height and width of lis. Appending lis to grid.
+  // Initiate this "for" loop when numberofLis is greater then 0.
   for (let i = 0; i < numberOfLis; i++) {
-    const li = $('<li>').css('height', gridWidth/gridSize).css('width', gridWidth/gridSize);
+    // Variable that sets height and width of the lis.
+    const li = $('<li>').css('height', gridWidth/gridSize).css('width', gridWidth/gridSize).addClass('sequence');
+    // Appends the lis to the $grid.
     $grid.append(li);
   }
 
-  $lis = $('li');
+  // Setting $lis to be equal to all of the lis when called.
+  $lis = $('.sequence');
 }
 
-// Run start function after clicking start button.
+// Clicking the start button calls on this function.
 function start() {
+  // Creates empty arrays for gameSequence and userSequence and sets numberOfIncorrects to be 0.
   gameSequence       = [];
   userSequence       = [];
   numberOfIncorrects = 0;
@@ -67,44 +79,49 @@ function start() {
   // Initiate this "for" loop when level is equal to or higher then 0.
   for (let i = 0; i <= level; i++) {
     let nextItem = {
+      // Set the index of gameSequence to be randomized *
       index: Math.floor(Math.random() * $lis.length),
       audio: audio[Math.floor(Math.random() * audio.length)]
     };
 
+    // If the audio that is played when a box flashes is equal to the 'incorrect' sound, increase  numberOfIncorrects by 1.
     if (nextItem.audio === 'incorrect') {
       numberOfIncorrects++;
     }
 
+    // When numberOfIncorrects is larger then 1
     while (numberOfIncorrects > 1) {
       nextItem = {
         index: Math.floor(Math.random() * $lis.length),
         audio: audio[Math.floor(Math.random() * audio.length)]
       };
 
+      // If the audio of nextItem equals to the 'correct' sound numberOfIncorrects is (removed/decrease by 1?)?
       if (nextItem.audio === 'correct') {
         numberOfIncorrects--;
       }
     }
-
+    // Push the nextItem(s) into the gameSequence array.
     gameSequence.push(nextItem);
   }
-
+  // Filters out the 'incorrect' audio from gameSequenceWithoutIncorrects so you are able to compare the users array without the 'incorrect' sound.
   gameSequenceWithoutIncorrects = gameSequence.filter(n => n.audio !== 'incorrect');
 
   // Logs the gameSequence array in the console log.
   console.log('gameSequence', gameSequence);
+  // logs the gameSequenceWithoutIncorrects in the console log.
   console.log('gameSequenceWithoutIncorrects', gameSequenceWithoutIncorrects);
 
-  // Runs playSequence function (?).
+  // Calls on the playSequence function
   playSequence();
 }
 
-// This function
+// This function is called when the start function is "finished".
 function playSequence() {
   for (let i = 0; i <= level; i++) {
     setTimeout(() => {
       const nextIndex = gameSequence[i].index; // Variable for gameSequence index (?).
-      const $nextLi   = $($lis[nextIndex]); // Variable for next li in the game sequence (?).
+      const $nextLi   = $($lis[nextIndex]); // Get the index for .
       const prevColor = $nextLi.css('background-color'); // Variable for the background-color of the next chosen li in the gameSequence.
       $nextLi.css('background-color', 'white'); // Sets background-color of nextli to the color in the object.
 
@@ -215,4 +232,13 @@ function reset(){
   createGrid();
 }
 
-$('header').addClass('item animated bounceInDown');
+// This function is called when you click on "Rules" on the page.
+function rules() {
+  if(shouldShowRules === true) {
+    $('.text').css('display', 'block');
+    shouldShowRules = false;
+  } else {
+    $('.text').css('display', 'none');
+    shouldShowRules = true;
+  }
+}
