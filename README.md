@@ -22,6 +22,7 @@ How the game was built
 Memory Game was created using HTML, CSS and Javascript.
 
 https://coolors.co/ (Color generator for styling)
+
 https://fonts.google.com/ (Where I picked out my font for the text)
 
 Credits
