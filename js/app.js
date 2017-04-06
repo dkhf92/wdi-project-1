@@ -36,7 +36,7 @@ function init(){
   // Click the start button to start the game.
   $start.on('click', start);
 
-  // When you click the li`s in guess function the li`s respond(?).
+  // When you click the li`s in guess function the li`s respond.
   $main.on('click', 'li', guess);
 
   // When you click the reset button it resets..
@@ -52,9 +52,9 @@ function createGrid() {
   // Append the $grid variable to to the $main variable which runs every time loading the page or resetting the game. This makes the lis visible on the page.
   $main.html($grid);
 
-  // Variable that returns value of gridsize when called(?)
+  // Variable that returns value of gridsize.
   const numberOfLis = Math.pow(gridSize, 2);
-  // Variable that "appends" witdh to the $grid when called(?)
+  // Variable that "appends" witdh to the $grid.
   const gridWidth   = $grid.width();
 
   // Initiate this "for" loop when numberofLis is greater then 0.
@@ -65,12 +65,14 @@ function createGrid() {
     $grid.append(li);
   }
 
+
   // Setting $lis to be equal to all of the lis when called.
   $lis = $('.sequence');
 }
 
 // Clicking the start button calls on this function.
 function start() {
+
   // Creates empty arrays for gameSequence and userSequence and sets numberOfIncorrects to be 0.
   gameSequence       = [];
   userSequence       = [];
@@ -79,7 +81,7 @@ function start() {
   // Initiate this "for" loop when level is equal to or higher then 0.
   for (let i = 0; i <= level; i++) {
     let nextItem = {
-      // Set the index of gameSequence to be randomized *
+      // Set the index of gameSequence to be randomized
       index: Math.floor(Math.random() * $lis.length),
       audio: audio[Math.floor(Math.random() * audio.length)]
     };
@@ -89,7 +91,7 @@ function start() {
       numberOfIncorrects++;
     }
 
-    // When numberOfIncorrects is larger then 1
+    // While numberOfIncorrects is larger then 1
     while (numberOfIncorrects > 1) {
       nextItem = {
         index: Math.floor(Math.random() * $lis.length),
@@ -120,8 +122,8 @@ function start() {
 function playSequence() {
   for (let i = 0; i <= level; i++) {
     setTimeout(() => {
-      const nextIndex = gameSequence[i].index; // Variable for gameSequence index (?).
-      const $nextLi   = $($lis[nextIndex]); // Get the index for .
+      const nextIndex = gameSequence[i].index; // Variable for gameSequence index.
+      const $nextLi   = $($lis[nextIndex]); // Get the index
       const prevColor = $nextLi.css('background-color'); // Variable for the background-color of the next chosen li in the gameSequence.
       $nextLi.css('background-color', 'white'); // Sets background-color of nextli to the color in the object.
 
@@ -135,12 +137,12 @@ function playSequence() {
           playing = true;
           console.log('You can play now!');
         }
-      }, 500); // 0.5 second interval from nextLi to prevColor (?)
-    }, 1000*i); // 1 second between each gameSequence (?)
+      }, 500); // 0.5 second interval from nextLi to prevColor.
+    }, 1000*i); // 1 second between each gameSequence.
   }
 }
 
-// This function will only run if playSequence has already run and variable playing is true. If playing is false you will "return" to the start (?).
+// This function will only run if playSequence has already run and variable playing is true. If playing is false you will "return" to the start.
 function guess() {
   if (!playing) {
     console.log('You cant play yet');
@@ -164,12 +166,13 @@ function guess() {
     $chosenLi.css('background-color', prevColor);
   }, 500);
 
+  // If userSequence Index
   if (
     userSequence[userSequence.length-1] ===
     gameSequenceWithoutIncorrects[userSequence.length-1].index
   ) {
     correct();
-
+    // If userSequence
     if (userSequence.length === gameSequenceWithoutIncorrects.length) {
       allCorrect();
 
@@ -181,7 +184,7 @@ function guess() {
       if (score % 2 === 0) {
         level++;
       }
-
+      // When you reach level 6,12 etc the gridsize increases.
       if (score % 6 === 0) {
         gridSize++;
         createGrid();
@@ -234,6 +237,7 @@ function reset(){
 
 // This function is called when you click on "Rules" on the page.
 function rules() {
+  // If true display the text, then set back to false. Else display none.
   if(shouldShowRules === true) {
     $('.text').css('display', 'block');
     shouldShowRules = false;
